@@ -1,12 +1,16 @@
 var card = {
-  returnCount: 5,
+  gifColumns: [$("#column-1"), $("#column-2"), $("#column-3"), $("#column-4")],
   buttonArray: ["cat", "dog", "bird", "lion", "monkey"],
-  newCard: function(imgSrc, rating, column) {
+  newCard: function(imgSrcStill, imgSrcGif, rating, column) {
     var cardDiv = $("<div>")
       .addClass("card mb-4")
-      .css("width", "22rem");
+      .css("width", "16rem");
     var imgNew = $("<img>").addClass("card-img-top");
-    imgNew.attr("src", imgSrc);
+    imgNew
+      .attr("src", imgSrcStill)
+      .attr("data-still", imgSrcStill)
+      .attr("data-gif", imgSrcGif)
+      .attr("data-state", "still");
     var cardBodyDiv = $("<div>");
     var ratingText = $("<h5>")
       .addClass("card-title")
@@ -29,18 +33,43 @@ var card = {
   },
 
   emptyColumns: function() {
-    $("#column-1").empty();
-    $("#column-2").empty();
-    $("#column-3").empty();
+    for (var i = 0; i < this.gifColumns.length; i++) {
+      this.gifColumns[i].empty();
+    }
   }
 };
 
 $(document).ready(function() {
   card.updateButtons();
 
-  $("#add-button").on("click", function() {
+  $("#add-button").on("click", function(event) {
+    event.preventDefault();
     card.buttonArray.push($("#search").val());
     card.updateButtons();
+  });
+
+  $("a").click(function(e) {
+    // $("a").attr({
+    //   target: "_blank",
+    //   href: "index.html"
+    // });
+
+    e.preventDefault(); //stop the browser from following
+    window.location.href =
+      "https://media3.giphy.com/media/tHXbAe0Zz6tj4W1UBB/giphy.webp";
+  });
+
+  $(document).on("click", ".card-img-top", function() {
+    var state = $(this).attr("data-state");
+    if (state === "still") {
+      $(this)
+        .attr("src", $(this).attr("data-gif"))
+        .attr("data-state", "gif");
+    } else {
+      $(this)
+        .attr("src", $(this).attr("data-still"))
+        .attr("data-state", "still");
+    }
   });
 
   $(document).on("click", ".gif-button", function() {
@@ -48,8 +77,8 @@ $(document).ready(function() {
     // var apiKey = "xQzjTdUjrsEyzPDRRksQka40sD7rkWBZ";
     var apiKey = "dc6zaTOxFJmzC";
     var search = $(this).attr("data-value");
-    var limit = 6;
-    var column = $("#column-1");
+    var limit = 10;
+    var columnIndex = 0;
     var queryURL =
       "https://api.giphy.com/v1/gifs/search?api_key=" +
       apiKey +
@@ -62,20 +91,17 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(response) {
+      console.log(response);
       for (var i = 0; i < limit; i++) {
-        console.log(response.data[i]);
         card.newCard(
+          response.data[i].images.fixed_width_still.url,
           response.data[i].images.fixed_width.url,
           response.data[i].rating,
-          column
+          card.gifColumns[columnIndex]
         );
-        switch (i) {
-          case 1:
-            column = $("#column-2");
-            break;
-          case 3:
-            column = $("#column-3");
-            break;
+        columnIndex++;
+        if (columnIndex >= 4) {
+          columnIndex = 0;
         }
       }
     });
