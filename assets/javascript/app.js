@@ -48,16 +48,16 @@ $(document).ready(function() {
     card.updateButtons();
   });
 
-  $("a").click(function(e) {
-    // $("a").attr({
-    //   target: "_blank",
-    //   href: "index.html"
-    // });
+  // $("a").click(function(e) {
+  //   // $("a").attr({
+  //   //   target: "_blank",
+  //   //   href: "index.html"
+  //   // });
 
-    e.preventDefault(); //stop the browser from following
-    window.location.href =
-      "https://media3.giphy.com/media/tHXbAe0Zz6tj4W1UBB/giphy.webp";
-  });
+  //   e.preventDefault(); //stop the browser from following
+  //   window.location.href =
+  //     "https://media3.giphy.com/media/tHXbAe0Zz6tj4W1UBB/giphy.webp";
+  // });
 
   $(document).on("click", ".card-img-top", function() {
     var state = $(this).attr("data-state");
