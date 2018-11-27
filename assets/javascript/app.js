@@ -2,21 +2,29 @@ var card = {
   gifColumns: [$("#column-1"), $("#column-2"), $("#column-3"), $("#column-4")],
   buttonArray: ["cat", "dog", "bird", "lion", "monkey"],
   newCard: function(imgSrcStill, imgSrcGif, rating, column) {
-    var cardDiv = $("<div>")
-      .addClass("card mb-4")
-      .css("width", "16rem");
+    var cardDiv = $("<div>").addClass("card mb-4 p-1 gif-card");
+    var topDiv = $("<div>")
+      .addClass("position-relative tint gif-image")
+      .html('<i class="fas play-button fa-play"></i>');
     var imgNew = $("<img>").addClass("card-img-top");
     imgNew
       .attr("src", imgSrcStill)
       .attr("data-still", imgSrcStill)
       .attr("data-gif", imgSrcGif)
       .attr("data-state", "still");
+    topDiv.append(imgNew);
     var cardBodyDiv = $("<div>");
-    var ratingText = $("<h5>")
-      .addClass("card-title")
-      .text("Rating: " + rating);
-    cardBodyDiv.append(ratingText);
-    cardDiv.append(imgNew).append(cardBodyDiv);
+    var ratingDiv = $("<div>").addClass("rating-div");
+    var ratingText = $("<h5>").text(rating);
+    var expandDiv = $("<div>")
+      .addClass("expand-div")
+      .html("<i class='fas fa-expand'></i>");
+    if (rating === "pg-13") {
+      ratingText.addClass("pg-13");
+    }
+    ratingDiv.append(ratingText);
+    cardBodyDiv.append(ratingDiv).append(expandDiv);
+    cardDiv.append(topDiv).append(cardBodyDiv);
     column.prepend(cardDiv);
   },
 
@@ -25,7 +33,7 @@ var card = {
     for (var i = 0; i < this.buttonArray.length; i++) {
       var newButton = $("<button>");
       newButton
-        .addClass("btn btn-primary gif-button m-1")
+        .addClass("btn btn-dark gif-button m-1")
         .attr("data-value", this.buttonArray[i])
         .text(this.buttonArray[i]);
       $("#button-div").append(newButton);
@@ -39,36 +47,51 @@ var card = {
   }
 };
 
+var rotateClicked = false;
+var rotateValue = 180;
+var menuHeightValue = 200;
+
 $(document).ready(function() {
   card.updateButtons();
 
-  $("#add-button").on("click", function(event) {
-    event.preventDefault();
-    card.buttonArray.push($("#search").val());
-    card.updateButtons();
+  $(".menu-icon").on("click", function() {
+    $(this).css("transform", "rotate(" + rotateValue + "deg)");
+    $(".menu-div").css("height", menuHeightValue + "px");
+    rotateClicked = !rotateClicked;
+    if (rotateClicked) {
+      rotateValue = 0;
+      menuHeightValue = 0;
+    } else {
+      rotateValue = 180;
+      menuHeightValue = 200;
+    }
   });
 
-  // $("a").click(function(e) {
-  //   // $("a").attr({
-  //   //   target: "_blank",
-  //   //   href: "index.html"
-  //   // });
+  $("#add-button").on("click", function(event) {
+    event.preventDefault();
+    if ($("#search").val() != "") {
+      card.buttonArray.push(
+        $("#search")
+          .val()
+          .toLowerCase()
+      );
+      card.updateButtons();
+      $("#search").val("");
+    }
+  });
 
-  //   e.preventDefault(); //stop the browser from following
-  //   window.location.href =
-  //     "https://media3.giphy.com/media/tHXbAe0Zz6tj4W1UBB/giphy.webp";
-  // });
-
-  $(document).on("click", ".card-img-top", function() {
-    var state = $(this).attr("data-state");
+  $(document).on("click", ".gif-image", function() {
+    var gif = $(this).find("img");
+    var play = $(this).find("i");
+    var state = gif.attr("data-state");
     if (state === "still") {
-      $(this)
-        .attr("src", $(this).attr("data-gif"))
-        .attr("data-state", "gif");
+      $(this).removeClass("tint");
+      play.hide();
+      gif.attr("src", gif.attr("data-gif")).attr("data-state", "gif");
     } else {
-      $(this)
-        .attr("src", $(this).attr("data-still"))
-        .attr("data-state", "still");
+      $(this).addClass("tint");
+      play.show();
+      gif.attr("src", gif.attr("data-still")).attr("data-state", "still");
     }
   });
 
@@ -85,20 +108,22 @@ $(document).ready(function() {
       "&q=" +
       search +
       "&limit=" +
-      limit;
+      30;
 
     $.ajax({
       url: queryURL,
       method: "GET"
     }).then(function(response) {
-      console.log(response);
+      var gifs = response.data;
       for (var i = 0; i < limit; i++) {
+        var gifIndex = Math.floor(Math.random() * gifs.length);
         card.newCard(
-          response.data[i].images.fixed_width_still.url,
-          response.data[i].images.fixed_width.url,
-          response.data[i].rating,
+          gifs[gifIndex].images.fixed_width_still.url,
+          gifs[gifIndex].images.fixed_width.url,
+          gifs[gifIndex].rating,
           card.gifColumns[columnIndex]
         );
+        gifs.splice(gifIndex, 1);
         columnIndex++;
         if (columnIndex >= 4) {
           columnIndex = 0;

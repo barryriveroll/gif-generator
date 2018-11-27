@@ -1,0 +1,136 @@
+body {
+  background: rgb(236, 227, 214);
+  background: radial-gradient(
+    circle,
+    rgba(236, 227, 214, 1) 0%,
+    rgba(65, 81, 83, 1) 93%,
+    rgba(37, 52, 56, 1) 100%
+  );
+}
+
+nav {
+  background: #00000073 !important;
+  color: white;
+}
+.rating-div {
+  padding-top: 1px;
+  margin-top: 4px;
+  width: 30px;
+  text-align: center;
+  line-height: 0.5;
+  height: 30px;
+  border: rounded;
+  border-radius: 15px;
+  background: #212529;
+  color: white;
+  text-transform: uppercase;
+  float: left;
+}
+.title-text {
+  font-family: "Shrikhand", cursive !important;
+  font-size: 30px;
+  transform: scaleY(1.4);
+  margin-bottom: -5px;
+}
+.gif-card {
+  width: 24rem;
+  background: #00000073;
+}
+.menu-div {
+  background: #00000073;
+  transition: all 0.2s linear;
+  height: 0px;
+  overflow: hidden;
+}
+.pg-13 {
+  font-size: 1rem;
+  padding-top: 2px;
+  line-height: 0.8;
+}
+.expand-div {
+  float: right;
+  font-size: 20px;
+  color: white;
+  background: #212529;
+  width: 30px;
+  margin-top: 4px;
+  text-align: center;
+  border-radius: 15px;
+}
+.play-button {
+  position: absolute;
+  font-size: 60px;
+  top: calc(50% - 30px);
+  left: calc(50% - 26px);
+}
+.menu-icon {
+  font-size: 60px;
+  transition: all 0.2s linear;
+  -ms-transform: rotate(0deg); /* IE 9 */
+  -webkit-transform: rotate(0deg); /* Safari 3-8 */
+  transform: rotate(0deg);
+}
+.menu-icon:hover {
+  cursor: pointer;
+}
+.tint {
+  position: relative;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.2) 3px 5px 5px;
+}
+.navbar-bg {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.603) 10%,
+    rgba(0, 0, 0, 0.644) 50%,
+    rgba(0, 0, 0, 0.623) 75%,
+    rgba(0, 0, 0, 0.603) 100%
+  ) !important;
+}
+
+.tint:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.5);
+  transition: all 0.1s linear;
+}
+
+.tint:hover:before {
+  background: none;
+}
+
+@media (min-width: 576px) {
+  .gif-card {
+    width: 16rem;
+  }
+
+  .title-text {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .gif-card {
+    width: 20rem;
+  }
+  .title-text {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 992px) {
+  .gif-card {
+    width: 18rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .gif-card {
+    width: 16rem !important;
+  }
+}
