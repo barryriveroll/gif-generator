@@ -1,7 +1,8 @@
 var card = {
   gifColumns: [$("#column-1"), $("#column-2"), $("#column-3"), $("#column-4")],
   buttonArray: ["cat", "dog", "bird", "lion", "monkey"],
-  newCard: function(imgSrcStill, imgSrcGif, rating, column) {
+
+  newCard: function(imgSrcStill, imgSrcGif, rating, largeSrc, column) {
     var cardDiv = $("<div>").addClass("card mb-4 p-1 gif-card");
     var topDiv = $("<div>")
       .addClass("position-relative tint gif-image")
@@ -18,7 +19,8 @@ var card = {
     var ratingText = $("<h5>").text(rating);
     var expandDiv = $("<div>")
       .addClass("expand-div")
-      .html("<i class='fas fa-expand'></i>");
+      .html("<i class='fas fa-expand'></i>")
+      .attr("data-large", imgSrcGif);
     if (rating === "pg-13") {
       ratingText.addClass("pg-13");
     }
@@ -80,6 +82,20 @@ $(document).ready(function() {
     }
   });
 
+  $(".extended-bg").on("click", function() {
+    $(".extended-bg").css("height", "0%");
+    $(".expanded-view").empty();
+  });
+
+  $(document).on("click", ".expand-div", function() {
+    var largeUrl = $(this).attr("data-large");
+    var largeImg = $("<img>")
+      .attr("src", largeUrl)
+      .addClass("card-img-top");
+    $(".expanded-view").append(largeImg);
+    $(".extended-bg").css("height", "100%");
+  });
+
   $(document).on("click", ".gif-image", function() {
     var gif = $(this).find("img");
     var play = $(this).find("i");
@@ -114,6 +130,7 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(response) {
+      console.log(response.data[0]);
       var gifs = response.data;
       for (var i = 0; i < limit; i++) {
         var gifIndex = Math.floor(Math.random() * gifs.length);
@@ -121,6 +138,7 @@ $(document).ready(function() {
           gifs[gifIndex].images.fixed_width_still.url,
           gifs[gifIndex].images.fixed_width.url,
           gifs[gifIndex].rating,
+          gifs[gifIndex].images.downsized_large.url,
           card.gifColumns[columnIndex]
         );
         gifs.splice(gifIndex, 1);
