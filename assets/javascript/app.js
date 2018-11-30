@@ -51,10 +51,54 @@ var card = {
 
 var rotateClicked = false;
 var rotateValue = 180;
-var menuHeightValue = 200;
+var menuHeightValue = 300;
+
+function returnGifs(search) {
+  card.emptyColumns();
+  // var apiKey = "xQzjTdUjrsEyzPDRRksQka40sD7rkWBZ";
+  var apiKey = "dc6zaTOxFJmzC";
+  // var search = $(this).attr("data-value");
+  var limit = 10;
+  var columnIndex = 0;
+  var queryURL =
+    "https://api.giphy.com/v1/gifs/search?api_key=" +
+    apiKey +
+    "&q=" +
+    search +
+    "&limit=" +
+    30;
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
+    console.log(response.data[0]);
+    var gifs = response.data;
+    for (var i = 0; i < limit; i++) {
+      var gifIndex = Math.floor(Math.random() * gifs.length);
+      card.newCard(
+        gifs[gifIndex].images.fixed_width_still.url,
+        gifs[gifIndex].images.fixed_width.url,
+        gifs[gifIndex].rating,
+        gifs[gifIndex].images.downsized_large.url,
+        card.gifColumns[columnIndex]
+      );
+      gifs.splice(gifIndex, 1);
+      columnIndex++;
+      if (columnIndex >= 4) {
+        columnIndex = 0;
+      }
+    }
+  });
+}
+
+function init() {
+  $('[data-toggle="tooltip"]').tooltip();
+  card.updateButtons();
+}
 
 $(document).ready(function() {
-  card.updateButtons();
+  init();
 
   $(".menu-icon").on("click", function() {
     $(this).css("transform", "rotate(" + rotateValue + "deg)");
@@ -65,7 +109,7 @@ $(document).ready(function() {
       menuHeightValue = 0;
     } else {
       rotateValue = 180;
-      menuHeightValue = 200;
+      menuHeightValue = 300;
     }
   });
 
@@ -79,6 +123,17 @@ $(document).ready(function() {
       );
       card.updateButtons();
       $("#search").val("");
+    }
+  });
+
+  $("#search-button").on("click", function(event) {
+    event.preventDefault();
+    if ($("#search").val() != "") {
+      returnGifs(
+        $("#search")
+          .val()
+          .toLowerCase()
+      );
     }
   });
 

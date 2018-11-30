@@ -25,31 +25,120 @@
     <title>Gif Giver</title>
   </head>
   <body>
-    <nav class="navbar navbar-dark navbar-bg">
+    <nav class="navbar-bg">
       <div class="container">
-        <a class="navbar-brand title-text float-left" href="#"> Gif Giver </a>
-        <i class="fas fa-caret-square-down float-right menu-icon"></i>
+        <div class="row">
+          <div class="col-md-4">
+            <a class="navbar-brand text-light title-text float-left" href="#">
+              Gif Giver
+            </a>
+          </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-5 mt-4">
+            <i class="fas fa-caret-square-down menu-icon float-right"></i>
+
+            <div class="input-group mt-1 float-right" style="width: 80%">
+              <div class="float-left pt-2">
+                <i
+                  class="fas fa-question-circle mr-2"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Search for gifs now by clicking the magnifying glass, or add a button by clicking the plus to search whenever that button is pressed."
+                ></i>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search..."
+                id="search"
+                aria-describedby="button-addon4"
+              />
+              <div class="input-group-append" id="button-addon4">
+                <button
+                  id="search-button"
+                  class="btn btn-outline-light"
+                  type="button"
+                >
+                  <i class="fas fa-search"></i>
+                </button>
+                <button
+                  id="add-button"
+                  class="btn  btn-outline-light"
+                  type="button"
+                >
+                  <i class="fas fa-plus-square"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
     <div class="container menu-div text-light">
-      <form class="form-inline pt-4">
-        <div class="form-group mr-2 mb-2">
-          <input
-            type="text"
-            class="form-control"
-            id="search"
-            placeholder="Search..."
-          />
+      <h3 class="mt-2"><em>Options</em></h3>
+      <hr />
+
+      <div class="row">
+        <div class="float-left mt-3">
+          <i
+            class="fas fa-question-circle pt-2 mr-2"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="&quot;Replace gifs&quot; option will replace all gifs on new search. &quot;Add gifs&quot; option adds gifs to the existing gifs. WARNING: Adding a lot of gifs can cause significant slowdown!"
+          ></i>
         </div>
-        <button id="add-button" type="submit" class="btn btn-dark mb-2">
-          Add Button
-        </button>
-      </form>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="append-gifs" />
-        <label class="form-check-label" for="append-gifs"
-          >Add to current gifs</label
-        >
+        <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+          <label class="btn btn-dark active">
+            <input
+              type="radio"
+              name="options"
+              id="option1"
+              autocomplete="off"
+              checked
+            />
+            Replace gifs
+          </label>
+          <label class="btn btn-dark">
+            <input
+              type="radio"
+              name="options"
+              id="option2"
+              autocomplete="off"
+            />
+            Add gifs
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="float-left mt-3">
+          <i
+            class="fas fa-question-circle pt-2 mr-2"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="&quot;Replace gifs&quot; option will replace all gifs on new search. &quot;Add gifs&quot; option adds gifs to the existing gifs. WARNING: Adding a lot of gifs can cause significant slowdown!"
+          ></i>
+        </div>
+        <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+          <label class="btn btn-dark active">
+            <input
+              type="radio"
+              name="options"
+              id="option1"
+              autocomplete="off"
+              checked
+            />
+            Replace gifs
+          </label>
+          <label class="btn btn-dark">
+            <input
+              type="radio"
+              name="options"
+              id="option2"
+              autocomplete="off"
+            />
+            Add gifs
+          </label>
+        </div>
       </div>
     </div>
     <div class="container pt-3">
@@ -77,7 +166,21 @@
         ></div>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <!--
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    -->
     <script src="assets/javascript/app.js"></script>
   </body>
 </html>
