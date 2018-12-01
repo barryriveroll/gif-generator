@@ -21,23 +21,23 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
-
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="assets/images/favicon.png"
+    />
     <title>Gif Giver</title>
   </head>
   <body>
     <nav class="navbar-bg">
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
-            <a class="navbar-brand text-light title-text float-left" href="#">
-              Gif Giver
-            </a>
+          <div class="col-md-6">
+            <h2 class="text-light title-text my-3">Gif Giver</h2>
           </div>
-          <div class="col-md-3"></div>
-          <div class="col-md-5 mt-4">
-            <i class="fas fa-caret-square-down menu-icon float-right"></i>
-
-            <div class="input-group mt-1 float-right" style="width: 80%">
+          <div class="col-md-6 mt-0 mt-md-4 mr-5 mr-md-0">
+            <i class="fas fa-caret-square-down menu-icon float-right ml-2"></i>
+            <div class="input-group mt-2 pb-3 float-right search-width">
               <div class="float-left pt-2">
                 <i
                   class="fas fa-question-circle mr-2"
@@ -49,7 +49,7 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Search..."
+                placeholder="Find gifs..."
                 id="search"
                 aria-describedby="button-addon4"
               />
@@ -77,9 +77,8 @@
     <div class="container menu-div text-light">
       <h3 class="mt-2"><em>Options</em></h3>
       <hr />
-
-      <div class="row">
-        <div class="float-left mt-3">
+      <div class="row px-3 my-2">
+        <div class="float-left">
           <i
             class="fas fa-question-circle pt-2 mr-2"
             data-toggle="tooltip"
@@ -87,58 +86,43 @@
             title="&quot;Replace gifs&quot; option will replace all gifs on new search. &quot;Add gifs&quot; option adds gifs to the existing gifs. WARNING: Adding a lot of gifs can cause significant slowdown!"
           ></i>
         </div>
-        <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
-          <label class="btn btn-dark active">
-            <input
-              type="radio"
-              name="options"
-              id="option1"
-              autocomplete="off"
-              checked
-            />
-            Replace gifs
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label id="option-replace-gifs" class="btn btn-dark active">
+            <input type="radio" name="options" autocomplete="off" /> Replace
+            gifs
           </label>
-          <label class="btn btn-dark">
-            <input
-              type="radio"
-              name="options"
-              id="option2"
-              autocomplete="off"
-            />
-            Add gifs
+          <label id="option-add-gifs" class="btn btn-dark">
+            <input type="radio" name="options" autocomplete="off" /> Add gifs
           </label>
         </div>
       </div>
-      <div class="row">
-        <div class="float-left mt-3">
+      <div class="row px-3 my-2">
+        <div class="float-left">
           <i
             class="fas fa-question-circle pt-2 mr-2"
             data-toggle="tooltip"
             data-placement="top"
-            title="&quot;Replace gifs&quot; option will replace all gifs on new search. &quot;Add gifs&quot; option adds gifs to the existing gifs. WARNING: Adding a lot of gifs can cause significant slowdown!"
+            title="Reset gif buttons now and on every page load, or keep gif buttons until manually reset."
           ></i>
         </div>
-        <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
-          <label class="btn btn-dark active">
-            <input
-              type="radio"
-              name="options"
-              id="option1"
-              autocomplete="off"
-              checked
-            />
-            Replace gifs
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label id="option-reset-button" class="btn btn-dark active">
+            <input type="radio" name="options" autocomplete="off" /> Reset
+            buttons
           </label>
-          <label class="btn btn-dark">
-            <input
-              type="radio"
-              name="options"
-              id="option2"
-              autocomplete="off"
-            />
-            Add gifs
+          <label id="option-save-button" class="btn btn-dark">
+            <input type="radio" name="options" autocomplete="off" /> Keep
+            buttons
           </label>
         </div>
+      </div>
+      <div class="row px-3 my-2">
+        <button id="btn-view-favorites" class="btn btn-dark mr-2">
+          View favorites
+        </button>
+        <button id="btn-clear-favorites" class="btn btn-dark">
+          Clear favorites
+        </button>
       </div>
     </div>
     <div class="container pt-3">
@@ -178,9 +162,6 @@
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"
     ></script>
-    <!--
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    -->
     <script src="assets/javascript/app.js"></script>
   </body>
 </html>

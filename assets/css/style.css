@@ -45,6 +45,9 @@ nav {
   top: calc(50% - 30px);
   left: calc(50% - 26px);
 }
+.gif-image {
+  box-shadow: rgba(0, 0, 0, 0.44) 2px 3px 3px;
+}
 .tint:before {
   content: "";
   display: block;
@@ -62,12 +65,13 @@ nav {
 .tint {
   position: relative;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.44) 2px 3px 3px;
 }
 /* #endregion */
 /* #region EXPANDED_VIEW  */
-.expand-div {
+.expand-div,
+.favorite-div {
   float: right;
+  margin-left: 5px;
   font-size: 20px;
   color: white;
   background: #212529;
@@ -75,9 +79,16 @@ nav {
   margin-top: 4px;
   text-align: center;
   border-radius: 15px;
+  cursor: pointer;
+}
+.expand-div {
+  display: none;
+}
+.favorite-red {
+  color: #b73636;
 }
 .extended-bg {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 0%;
   top: 0px;
@@ -87,12 +98,12 @@ nav {
 }
 .expanded-view {
   position: absolute;
-  width: 600px;
+  width: 0px;
   /* height: 00px; */
-  background: black;
+  background: #f8f9fa;
   z-index: 2;
   left: calc(50% - 300px);
-  top: 15%;
+  top: 4%;
 }
 /* #endregion  */
 /* #region HEADER */
@@ -102,6 +113,9 @@ nav {
   transform: scaleY(1.4);
   margin-bottom: -5px;
   text-shadow: 2px 2px 2px black;
+  margin: auto;
+  width: 138px;
+  cursor: default;
 }
 .menu-div {
   background: #00000073;
@@ -110,14 +124,18 @@ nav {
   overflow: hidden;
 }
 .menu-icon {
-  font-size: 30px;
+  margin-top: 5px;
+  font-size: 43px;
   transition: all 0.2s linear;
   -ms-transform: rotate(0deg); /* IE 9 */
   -webkit-transform: rotate(0deg); /* Safari 3-8 */
   transform: rotate(0deg);
+  cursor: pointer;
 }
 .menu-icon:hover {
-  cursor: pointer;
+}
+.search-width {
+  width: 75%;
 }
 .navbar-bg {
   background: linear-gradient(
@@ -134,18 +152,24 @@ nav {
   .gif-card {
     width: 16rem;
   }
-  .title-text,
-  .menu-icon {
+  .title-text {
     font-size: 40px;
+    width: 189px;
+  }
+  .expanded-view {
+    width: 600px;
+  }
+  .expand-div {
+    display: inline;
   }
 }
 @media (min-width: 768px) {
   .gif-card {
     width: 20rem;
   }
-  .title-text,
-  .menu-icon {
+  .title-text {
     font-size: 60px;
+    width: 100%;
   }
 }
 @media (min-width: 992px) {
