@@ -1,6 +1,6 @@
 var card = {
   gifColumns: [$("#column-1"), $("#column-2"), $("#column-3"), $("#column-4")],
-  buttonArray: ["cat", "dog", "bird", "lion", "monkey"],
+  buttonArray: [],
 
   pauseAllGifs: function() {
     var activeGif = $("[data-state='gif'");
@@ -77,6 +77,10 @@ var card = {
 
   updateButtons: function() {
     $("#button-div").empty();
+    this.buttonArray = JSON.parse(localStorage.getItem("buttonArray"));
+    if (this.buttonArray === null) {
+      this.buttonArray = [];
+    }
     for (var i = 0; i < this.buttonArray.length; i++) {
       var newButton = $("<button>");
       newButton
@@ -105,6 +109,9 @@ var favorites = [];
 function renderFavorites() {
   card.emptyColumns();
   favorites = JSON.parse(localStorage.getItem("favorites"));
+  if (favorites === null) {
+    favorites = [];
+  }
   var columnIndex = 0;
   for (var i = 0; i < favorites.length; i++) {
     card.newCard(
@@ -165,9 +172,12 @@ function returnGifs(search) {
   });
 }
 function init() {
+  // localStorage.setItem("buttonArray", JSON.stringify([]));
+  // localStorage.setItem("favorites", JSON.stringify([]));
+
   $('[data-toggle="tooltip"]').tooltip();
   $(".expanded-view").hide();
-  favorites = JSON.parse(localStorage.getItem("favorites"));
+  // favorites = JSON.parse(localStorage.getItem("favorites"));
   var optionResetButtons = localStorage.getItem("resetButtons");
   var optionReplaceGifs = localStorage.getItem("replaceGifs");
   if (optionReplaceGifs === "false") {
@@ -180,7 +190,7 @@ function init() {
   } else if (optionResetButtons === "false") {
     $("#option-reset-button").removeClass("active");
     $("#option-save-button").addClass("active");
-    card.buttonArray = JSON.parse(localStorage.getItem("buttonArray"));
+    // card.buttonArray = JSON.parse(localStorage.getItem("buttonArray"));
     card.updateButtons();
   }
 }

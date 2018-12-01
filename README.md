@@ -2,7 +2,7 @@
 
 ## Week 6 Homework Assignment, Coding Boot Camp, UNC-Chapel Hill
 
-### [Play here](https://barryriveroll.github.io/gif-generator)
+### [See it here](https://barryriveroll.github.io/gif-generator)
 
 Originally submitted on 12/1/2018
 
